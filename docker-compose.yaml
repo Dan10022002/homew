@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "test_user"
+      POSTGRES_PASSWORD: "test_pass"
+    ports:
+      - "5432:5432"
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:9000"
